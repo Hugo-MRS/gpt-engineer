@@ -65,6 +65,43 @@ Check the [Windows README](./WINDOWS_README.md) for Windows usage.
 - Run `gpte <project_dir> -i` with a relative path to your folder
   - For example: `gpte projects/my-old-project -i` from the gpt-engineer directory root with your folder in `projects/`
 
+### REST API
+
+You can also drive GPT Engineer programmatically using a simple FastAPI server.
+
+1. **Install and run the server**
+   ```bash
+   pip install -e .
+   gpt-engineer-api
+   ```
+
+   The API listens on `http://0.0.0.0:8000` by default.
+
+2. **Create a project**
+   ```bash
+   curl -X POST http://127.0.0.1:8000/projects \
+        -H "Content-Type: application/json" \
+        -d '{"prompt": "write a cat detector"}'
+   ```
+
+   The response returns a `project_id` and the initial files generated.
+
+3. **Iterate on the project**
+   ```bash
+   curl -X POST http://127.0.0.1:8000/projects/<project_id>/iterate \
+        -H "Content-Type: application/json" \
+        -d '{"prompt": "add unit tests"}'
+   ```
+
+4. **Preview generated files**
+   ```bash
+   # list all files
+   curl http://127.0.0.1:8000/projects/<project_id>/files
+
+   # fetch a specific file
+   curl http://127.0.0.1:8000/projects/<project_id>/files/main.py
+   ```
+
 ### Benchmark custom agents
 - gpt-engineer installs the binary 'bench', which gives you a simple interface for benchmarking your own agent implementations against popular public datasets.
 - The easiest way to get started with benchmarking is by checking out the [template](https://github.com/gpt-engineer-org/gpte-bench-template) repo, which contains detailed instructions and an agent template.

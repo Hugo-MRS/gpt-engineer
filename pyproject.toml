@@ -38,6 +38,8 @@ pillow = "^10.2.0"
 datasets = "^2.17.1"
 black = "23.3.0"
 langchain-community = "^0.2.0"
+fastapi = "^0.110.0"
+uvicorn = ">=0.25"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.3.1"
@@ -69,6 +71,7 @@ ge = 'gpt_engineer.applications.cli.main:app'
 gpte = 'gpt_engineer.applications.cli.main:app'
 bench = 'gpt_engineer.benchmark.__main__:app'
 gpte_test_application = 'tests.caching_main:app'
+gpt-engineer-api = 'gpt_engineer.applications.api.main:run'
 
 [tool.poetry.extras]
 test = ["pytest", "pytest-cov"]
